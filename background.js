@@ -131,14 +131,63 @@ function saveLog(msg) {
 }
 
 // 스케줄러 & 트리거
-chrome.alarms.create("dailyCheck", { periodInMinutes: 1440 });
+// 다음 1시 5분 타임스탬프 계산
+function getNextOneOFiveAM() {
+  const now = new Date();
+  const nextRun = new Date(now);
+  nextRun.setHours(1, 5, 0, 0);
 
+  // 이미 지났으면 내일로 설정
+  if (now >= nextRun) {
+    nextRun.setDate(nextRun.getDate() + 1);
+  }
+
+  return nextRun.getTime();
+}
+
+// 초기화 및 스케줄링 함수
+function initScheduler() {
+  const now = new Date();
+  
+  // 1. 오늘의 목표 시간(01:05) 계산
+  const todayTarget = new Date();
+  todayTarget.setHours(1, 5, 0, 0);
+
+  // 2. 현재 시간이 01:05를 지났는지 확인
+  if (now > todayTarget) {
+    console.log("[Endfield] 오늘 정기 시간(01:05)이 지났으므로 '오늘치' 출석을 즉시 시도합니다.");
+    doCheckIn(); // 즉시 실행
+  } else {
+    console.log("[Endfield] 아직 01:05 전입니다. 알람이 울릴 때까지 대기합니다.");
+  }
+
+  // 3. 미래를 위한 알람 설정 (다음 01:05)
+  const nextRunTime = getNextOneOFiveAM();
+  
+  chrome.alarms.clear("dailyCheck", () => {
+    chrome.alarms.create("dailyCheck", {
+      when: nextRunTime,
+      periodInMinutes: 1440 // 이후 24시간 주기 반복
+    });
+    console.log(`[Endfield] 다음 정기 알람 설정 완료: ${new Date(nextRunTime).toLocaleString()}`);
+  });
+}
+
+// 알람 리스너
 chrome.alarms.onAlarm.addListener((alarm) => { 
-  if (alarm.name === "dailyCheck") doCheckIn(); 
+  if (alarm.name === "dailyCheck") {
+    console.log(`[Endfield] 정기 알람(01:05) 작동 - 출석 체크 시작`);
+    doCheckIn(); 
+  }
 });
 
+// 확장프로그램 시작(로드) 시 스케줄러 초기화 실행
+initScheduler();
+
+// 브라우저가 완전히 켜질 때 발생하는 이벤트 (보조)
 chrome.runtime.onStartup.addListener(() => {
-  setTimeout(doCheckIn, 5000); // 5초 딜레이
+  // initScheduler가 이미 실행되겠지만, 명시적으로 트리거
+  console.log("[Endfield] 브라우저 시작됨");
 });
 
 chrome.runtime.onMessage.addListener((req) => { 
