@@ -44,3 +44,9 @@
     * `storage`: 토큰 및 로그 저장용
 
 > **Note:** 이 프로젝트는 개인 학습 및 편의를 위해 제작되었습니다. 비정상적인 이용은 제재의 대상이 될 수 있으며, 모든 책임은 사용자에게 있습니다.
+
+
+## 제작에 참고한 사이트
+
+https://github.com/4n3u/Endfield-CheckIn-Auto/blob/main/main.gs  
+https://github.com/j2i5ll/hoyoverse-checkin
