@@ -13,8 +13,10 @@
 ## 📦 설치 방법
 
 1.  이 저장소를 다운로드하거나 `git clone` 합니다.
+
 2.  크롬 브라우저 주소창에 `chrome://extensions`를 입력하여 접속합니다.
 3.  우측 상단의 **'개발자 모드'** 스위치를 켭니다.
+   <img width="859" height="118" alt="image" src="https://github.com/user-attachments/assets/65ea87ef-eef9-4331-9562-850f4caa9bab" />
 4.  좌측 상단의 **'압축해제된 확장 프로그램을 로드합니다'** 버튼을 클릭합니다.
 5.  다운로드 받은 폴더(`Endfield-auto-check-in-simple`)를 선택합니다.
 
