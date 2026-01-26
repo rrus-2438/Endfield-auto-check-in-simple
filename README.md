@@ -1,6 +1,6 @@
 # 🚀 Endfield (SKPort) Auto Check-in
 
-엔드필드(Endfield) / SKPort 플랫폼의 일일 출석체크를 자동으로 수행하는 크롬 확장프로그램입니다.
+엔드필드(Endfield) / SKPort 플랫폼의 일일 출석체크를 자동으로 수행하는 크롬 확장프로그램입니다.  
 브라우저를 켤 때와 매 24시간마다 자동으로 출석 상태를 확인하고 보상을 수령합니다.
 
 ## ✨ 주요 기능
@@ -18,7 +18,8 @@
 4.  크롬 브라우저 주소창에 `chrome://extensions`를 입력하여 접속합니다.
 5.  우측 상단의 **'개발자 모드'** 스위치를 켭니다.
 6.  좌측 상단의 **'압축해제된 확장 프로그램을 로드합니다'** 버튼을 클릭합니다.  
-<img width="859" height="118" alt="image" src="https://github.com/user-attachments/assets/65ea87ef-eef9-4331-9562-850f4caa9bab" />
+<img width="859" height="118" alt="image" src="https://github.com/user-attachments/assets/65ea87ef-eef9-4331-9562-850f4caa9bab" />  
+
 7.  **압축을 푼 폴더**를 선택하면 설치가 완료됩니다.
 
 ## 🛠️ 사용 방법 (초기 설정)
