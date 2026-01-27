@@ -1,7 +1,7 @@
 # 🚀 Endfield (SKPort) Auto Check-in
 
 엔드필드(Endfield) / SKPort 플랫폼의 일일 출석체크를 자동으로 수행하는 크롬 확장프로그램입니다.  
-브라우저를 켤 때와 매 24시간마다 자동으로 출석 상태를 확인하고 보상을 수령합니다.
+브라우저를 켤 때와 매일 밤 1시 5분에 작동합니다.
 
 ## ✨ 주요 기능
 
@@ -10,24 +10,31 @@
 * **⏰ 24시간 자동 스케줄러:** 브라우저가 켜져 있다면 매일 정해진 시간에 자동으로 출석을 수행합니다.
 * **👤 캐릭터 자동 감지:** 계정에 연동된 캐릭터(Role ID) 정보를 자동으로 조회하여 출석체크에 사용합니다.
 
-## 📦 설치 방법
+## 📦 설치 방법 (Download & Install)
 
-1.  이 페이지 우측의 **[Releases]** 섹션을 클릭하거나, **[여기(Releases 페이지)](https://github.com/rrus-2438/Endfield-auto-check-in-simple/releases)**를 클릭합니다.
-2.  최신 버전의 **ZIP 파일**을 다운로드합니다.
-3.  다운로드 받은 파일의 **압축을 풉니다.** (폴더 생성)
-4.  크롬 브라우저 주소창에 `chrome://extensions`를 입력하여 접속합니다.
-5.  우측 상단의 **'개발자 모드'** 스위치를 켭니다.
-6.  좌측 상단의 **'압축해제된 확장 프로그램을 로드합니다'** 버튼을 클릭합니다.  
+이 프로그램은 **Chrome**과 **Firefox**를 모두 지원합니다.  
+우측의 **[Releases]** 페이지에서 브라우저에 맞는 파일을 다운로드하세요.
+
+### 1. Chrome (크롬)
+1. `Endfield-Chrome-vX.X.X.zip` 다운로드 및 압축 해제.
+2. 주소창에 `chrome://extensions` 접속 → **개발자 모드** 켜기.
+3. **'압축해제된 확장 프로그램을 로드합니다'** 클릭 후 폴더 선택.
 <img width="859" height="118" alt="image" src="https://github.com/user-attachments/assets/65ea87ef-eef9-4331-9562-850f4caa9bab" />  
 
-7.  **압축을 푼 폴더**를 선택하면 설치가 완료됩니다.
+### 2. Firefox (파이어폭스)
+1. `Endfield-Firefox-vX.X.X.zip` 다운로드 및 압축 해제.
+2. 주소창에 `about:debugging` 접속.
+3. 왼쪽 메뉴 **'This Firefox'** 클릭.
+4. **'Load Temporary Add-on'** 버튼 클릭.
+5. 압축 푼 폴더 안의 `manifest.json` 파일 선택.
+
 
 ## 🛠️ 사용 방법 (초기 설정)
 
 설치 직후에는 로그인 정보가 없으므로 다음 과정을 한 번 수행해야 합니다.
 
 1.  확장프로그램 설치를 마칩니다.
-2.  **[엔드필드 출석 체크](https://game.skport.com/endfield/sign-in)**에 접속하여 **로그인**합니다.
+2.  [엔드필드 출석 체크](https://game.skport.com/endfield/sign-in)에 접속하여 **로그인**합니다.
 3.  확장프로그램 아이콘을 클릭합니다.
 4.  **"로그인 세션 (Cookie): 연동 완료 (OK)"** 라고 뜨는지 확인합니다.
 5.  **"지금 수동으로 출석하기"** 버튼을 눌러 정상 작동하는지 테스트합니다.
@@ -36,7 +43,7 @@
 
 ## ⚠️ 기술 정보 & 주의사항
 
-* **Target Site:** `skport.com` (Gryphline/Endfield Global or Alpha Test Platform)
+* **Target Site:** `skport.com` (Gryphline/Endfield Global)
 * **Cookie Name:** `SK_OAUTH_CRED_KEY`
 * **Permissions:**
     * `cookies`: 인증 토큰 획득용
