@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { width: 250px; padding: 15px; font-family: 'Segoe UI', sans-serif; background-color: #f9f9f9; }
+    h3 { margin: 0 0 15px 0; color: #333; text-align: center; }
+    .card { background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 10px; }
+    .label { font-size: 12px; color: #666; margin-bottom: 4px; }
+    .value { font-size: 14px; font-weight: bold; }
+    .ok { color: #2ecc71; }
+    .no { color: #e74c3c; }
+    button { 
+      width: 100%; padding: 10px; border: none; border-radius: 6px; 
+      background-color: #333; color: white; cursor: pointer; font-weight: bold;
+      transition: background 0.2s;
+    }
+    button:hover { background-color: #555; }
+    button:active { transform: scale(0.98); }
+  </style>
+</head>
+<body>
+  <h3>🚀 Endfield Check-in</h3>
+  
+  <div class="card">
+    <div class="label">🔑 로그인 세션 (Cookie)</div>
+    <div id="cookie-status" class="value">확인 중...</div>
+  </div>
+  
+  <div class="card">
+    <div class="label">📅 최근 실행 결과</div>
+    <div id="last-result" class="value" style="font-weight:normal; font-size:12px;">기록 없음</div>
+  </div>
+
+  <button id="btn-manual">지금 수동으로 출석하기</button>
+
+  <script src="popup.js"></script>
+</body>
+</html>

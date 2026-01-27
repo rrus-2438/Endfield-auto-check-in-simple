@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Endfield Auto Check-in (Simple)",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "엔드필드 자동 출석체크 확장프로그램",
   "permissions": [
     "cookies",
