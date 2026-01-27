@@ -24,8 +24,8 @@
 ### 2. Firefox (파이어폭스)
 1. `Endfield-Firefox-vX.X.X.zip` 다운로드 및 압축 해제.
 2. 주소창에 `about:debugging` 접속.
-3. 왼쪽 메뉴 **'This Firefox'** 클릭.
-4. **'Load Temporary Add-on'** 버튼 클릭.
+3. 왼쪽 메뉴 **'이 Firefox(This Firefox)'** 클릭.
+4. **'임시 부가기능 로드(Load Temporary Add-on)'** 버튼 클릭.
 5. 압축 푼 폴더 안의 `manifest.json` 파일 선택.
 
 
