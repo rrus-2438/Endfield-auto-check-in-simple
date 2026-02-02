@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Endfield Auto Check-in (Firefox)",
-  "version": "1.0.4",
+  "name": "Endfield Auto Check-in (Unofficial)",
+  "version": "1.0.5",
   "description": "엔드필드 자동 출석체크 확장프로그램",
   "permissions": [
     "cookies",
@@ -19,10 +19,21 @@
   "background": {
     "scripts": ["background.js"] 
   },
+  "content_scripts": [
+    {
+      "matches": ["https://game.skport.com/*", "https://zonai.skport.com/*"],
+      "js": ["interceptor.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://game.skport.com/*", "https://zonai.skport.com/*"],
+      "js": ["content.js"]
+    }
+  ],
   "browser_specific_settings": {
     "gecko": {
-      "id": "endfield-checkin@my-extension",
-      "strict_min_version": "109.0"
+      "id": "chdw2438@gmail.com",
+      "strict_min_version": "120.0"
     }
   }
 }
