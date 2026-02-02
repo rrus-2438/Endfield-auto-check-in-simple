@@ -1,12 +1,18 @@
 {
   "manifest_version": 3,
   "name": "Endfield Auto Check-in",
-  "version": "1.0.5",
+  "version": "2.0.0",
   "description": "엔드필드 자동 출석체크",
-  "permissions": ["cookies", "storage", "alarms"],
+  "permissions": [
+    "cookies",
+    "storage",
+    "alarms",
+    "tabs", 
+    "scripting"
+  ],
   "host_permissions": [
-    "https://*.skport.com/*",
-    "https://*.gryphline.com/*"
+    "https://game.skport.com/*",
+    "https://zonai.skport.com/*"
   ],
   "action": {
     "default_popup": "popup.html"
@@ -16,21 +22,9 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://game.skport.com/*", "https://zonai.skport.com/*"],
-      "js": ["interceptor.js"],
-      "world": "MAIN",
-      "run_at": "document_start"
-    },
-    {
-      "matches": ["https://game.skport.com/*", "https://zonai.skport.com/*"],
+      "matches": ["https://game.skport.com/endfield/sign-in*"],
       "js": ["content.js"],
-      "world": "ISOLATED"
+      "run_at": "document_idle"
     }
-  ],
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "endfield-checkin@rrus-2438.github.io",
-      "strict_min_version": "109.0"
-    }
-  }
+  ]
 }
