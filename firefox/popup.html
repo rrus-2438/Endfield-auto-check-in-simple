@@ -3,36 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <style>
-    body { width: 250px; padding: 15px; font-family: 'Segoe UI', sans-serif; background-color: #f9f9f9; }
-    h3 { margin: 0 0 15px 0; color: #333; text-align: center; }
-    .card { background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 10px; }
-    .label { font-size: 12px; color: #666; margin-bottom: 4px; }
-    .value { font-size: 14px; font-weight: bold; }
-    .ok { color: #2ecc71; }
-    .no { color: #e74c3c; }
-    button { 
-      width: 100%; padding: 10px; border: none; border-radius: 6px; 
-      background-color: #333; color: white; cursor: pointer; font-weight: bold;
-      transition: background 0.2s;
+    body {
+      width: 320px;
+      padding: 15px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
     }
-    button:hover { background-color: #555; }
-    button:active { transform: scale(0.98); }
+    h2 {
+      margin: 0 0 15px 0;
+      font-size: 18px;
+      color: #2c3e50;
+      text-align: center;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 10px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin: 5px 0;
+      border: none;
+      border-radius: 6px;
+      background-color: #3498db;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    button:hover { background-color: #2980b9; }
+    button:disabled { background-color: #bdc3c7; cursor: not-allowed; }
+    
+    #status-box {
+      padding: 10px;
+      background: #f0f0f0;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+    .log-container {
+      margin-top: 15px;
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      height: 120px;
+      overflow-y: auto;
+      font-size: 12px;
+      color: #555;
+    }
+    .log-item { margin-bottom: 4px; border-bottom: 1px solid #eee; padding-bottom: 2px; }
+    .log-time { color: #999; font-size: 11px; margin-right: 5px; }
   </style>
 </head>
 <body>
-  <h3>🚀 Endfield Check-in</h3>
-  
-  <div class="card">
-    <div class="label">🔑 로그인 세션 (Cookie)</div>
-    <div id="cookie-status" class="value">확인 중...</div>
-  </div>
-  
-  <div class="card">
-    <div class="label">📅 최근 실행 결과</div>
-    <div id="last-result" class="value" style="font-weight:normal; font-size:12px;">기록 없음</div>
+  <h2>Endfield Check-in</h2>
+
+  <div id="status-box">
+    상태: <span id="status-text">데이터 확인 중...</span>
   </div>
 
   <button id="btn-manual">지금 수동으로 출석하기</button>
+  
+  <button id="btn-relogin" style="display:none; background-color: #e74c3c;">
+    🚨 세션 만료! 클릭해서 재로그인
+  </button>
+
+  <div class="log-container" id="log-box">
+    <div style="text-align:center; color:#aaa; margin-top:40px;">로그 대기 중...</div>
+  </div>
 
   <script src="popup.js"></script>
 </body>
