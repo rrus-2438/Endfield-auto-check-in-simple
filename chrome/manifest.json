@@ -1,21 +1,36 @@
 {
   "manifest_version": 3,
-  "name": "Endfield Auto Check-in (Simple)",
-  "version": "1.0.4",
-  "description": "엔드필드 자동 출석체크 확장프로그램",
-  "permissions": [
-    "cookies",
-    "storage",
-    "alarms"
-  ],
+  "name": "Endfield Auto Check-in",
+  "version": "1.0.5",
+  "description": "엔드필드 자동 출석체크",
+  "permissions": ["cookies", "storage", "alarms"],
   "host_permissions": [
-    "https://*.skport.com/*"
+    "https://*.skport.com/*",
+    "https://*.gryphline.com/*"
   ],
   "action": {
-    "default_popup": "popup.html",
-    "default_title": "출석체크 상태 확인"
+    "default_popup": "popup.html"
   },
   "background": {
     "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://game.skport.com/*", "https://zonai.skport.com/*"],
+      "js": ["interceptor.js"],
+      "world": "MAIN",
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://game.skport.com/*", "https://zonai.skport.com/*"],
+      "js": ["content.js"],
+      "world": "ISOLATED"
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "endfield-checkin@rrus-2438.github.io",
+      "strict_min_version": "109.0"
+    }
   }
 }
