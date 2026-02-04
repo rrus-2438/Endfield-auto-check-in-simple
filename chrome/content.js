@@ -1,18 +1,63 @@
-console.log("[Endfield] 스마트 감지 모드 시작 🕵️");
+console.log("[Endfield Clicker] 스마트 감지 모드 시작 🕵️");
 
-let hasClicked = false; // 중복 클릭 방지
+let hasClicked = false;
 let observer = null;
+let loginCheckTimer = null; // ★ 깜빡임 방지용 타이머
+
+function isVisible(el) {
+  return el && el.offsetParent !== null;
+}
 
 function tryClickButton() {
-  if (hasClicked) return true; // 이미 눌렀으면 종료
+  if (hasClicked) return true;
 
-  // (A) 텍스트로 버튼 찾기 ("출석", "수령", "Check-in" 등)
-  const candidates = document.querySelectorAll('button, div[role="button"], div[class*="btn"], div[class*="button"]');
+  // ====================================================
+  // 1. 로그인 화면 감지
+  // ====================================================
+  const emailInput = document.querySelector('input[name="email"]');
+  const passwordInput = document.querySelector('input[type="password"]');
+
+  // 화면에 보이는 로그인 입력창이 있는지 확인
+  const isLoginPage = (
+    (emailInput && isVisible(emailInput)) || 
+    (passwordInput && isVisible(passwordInput))
+  );
+
+  if (isLoginPage) {
+    // 처음 발견했으면 타이머 시작 (바로 신고 안 함!)
+    if (loginCheckTimer === null) {
+      console.log("🤔 로그인 화면 감지됨. 진짜인지 2초간 지켜봅니다...");
+      loginCheckTimer = setTimeout(() => {
+        // 2초 뒤에 다시 확인
+        const emailNow = document.querySelector('input[name="email"]');
+        if (emailNow && isVisible(emailNow)) {
+             console.log("🚨 (확정) 2초 뒤에도 로그인 화면임. 신고 전송!");
+             reportFailure("LOGIN_REQUIRED");
+             hasClicked = true;
+        }
+        loginCheckTimer = null; 
+      }, 2000); // 2초 대기
+    }
+    return false; // 아직 확정 아니니 계속 감시
+  } else {
+    // 로그인 화면이 아니라고 판단되면 타이머 취소 (페이지 로딩 중 잠깐 떴던 것임)
+    if (loginCheckTimer !== null) {
+      console.log("😅 로그인 화면이 사라졌습니다. (로딩 중 깜빡임이었음)");
+      clearTimeout(loginCheckTimer);
+      loginCheckTimer = null;
+    }
+  }
+
+  // ====================================================
+  // 2. 출석 버튼 찾기
+  // ====================================================
   
+  // (A) 텍스트로 찾기
+  const candidates = document.querySelectorAll('button, div[role="button"], div[class*="btn"], div[class*="button"]');
   for (let el of candidates) {
     const text = el.innerText || "";
-    if (text.includes("출석") || text.includes("수령") || text.includes("Check-in")) {
-      if (el.offsetParent !== null) { // 화면에 보이는 것만
+    if ((text.includes("출석") || text.includes("수령") || text.includes("Check-in")) && !text.includes("로그인")) {
+      if (isVisible(el)) { 
         console.log("✅ 텍스트 버튼 발견! 즉시 클릭:", text);
         clickElement(el);
         return true;
@@ -22,7 +67,7 @@ function tryClickButton() {
 
   // (B) 이미지(Lottie) 구조로 찾기
   const lottieContainer = document.getElementById('lottie-container');
-  if (lottieContainer) {
+  if (lottieContainer && isVisible(lottieContainer)) {
     console.log("✅ 오늘 날짜(Lottie) 발견! 클릭 시도");
     clickElement(lottieContainer);
     if (lottieContainer.parentElement) clickElement(lottieContainer.parentElement);
@@ -36,49 +81,46 @@ function tryClickButton() {
     return true;
   }
 
-  return false; // 아직 못 찾음
+  return false;
 }
 
 function clickElement(el) {
   hasClicked = true;
-  el.click(); // 1차 클릭
-  setTimeout(() => el.click(), 100); // 0.1초 뒤 확인 사살 클릭
-  
+  el.click();
+  setTimeout(() => el.click(), 100);
   reportSuccess("✅ 버튼 클릭 완료!");
   if (observer) observer.disconnect();
 }
 
-// 3. MutationObserver: 화면 변화 감지기
 function startObserver() {
   if (tryClickButton()) return;
 
   observer = new MutationObserver((mutations) => {
-    if (tryClickButton()) {
-      observer.disconnect();
-    }
+    if (tryClickButton()) observer.disconnect();
   });
 
   observer.observe(document.body, { childList: true, subtree: true });
 
-  // 15초 타임아웃
   setTimeout(() => {
     if (!hasClicked) {
       if (observer) observer.disconnect();
-      reportFailure("⚠️ 15초 동안 버튼을 찾지 못했습니다. (타임아웃)");
+      // 시간 초과 시, 마지막으로 한번 더 로그인 체크
+      const emailInput = document.querySelector('input[name="email"]');
+      if (emailInput && isVisible(emailInput)) {
+        reportFailure("LOGIN_REQUIRED");
+      } else {
+        reportFailure("⚠️ 버튼을 못 찾음 (타임아웃)");
+      }
     }
   }, 15000);
 }
 
-// 4. 성공/실패 보고
 function reportSuccess(msg) {
-  console.log(msg);
   chrome.runtime.sendMessage({ action: "CHECKIN_COMPLETED", message: msg });
 }
 
 function reportFailure(msg) {
-  console.error(msg);
   chrome.runtime.sendMessage({ action: "CHECKIN_FAILED", message: msg });
 }
 
-// 실행
 startObserver();

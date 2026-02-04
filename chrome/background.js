@@ -53,9 +53,24 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
     
     // 내가 연 탭인지 확인
     if (autoCheckInTabId !== null && sender.tab && sender.tab.id === autoCheckInTabId) {
+      
+      // 로그인 필요 시 탭 닫지 않기
+      if (req.message === "LOGIN_REQUIRED") {
+        saveLog("🚨 로그인 필요! 로그인 창을 띄웁니다.");
+        console.log("[Endfield] 로그인이 풀림. 탭을 닫지 않고 활성화합니다.");
+        
+        // 1. 탭을 닫지 않고, 사용자 눈앞으로 가져옴 (Active: true)
+        chrome.tabs.update(autoCheckInTabId, { active: true }).catch(() => {});
+        
+        // 2. 추적 변수는 초기화 (이제 이 탭은 사용자가 알아서 하도록 놔둠)
+        autoCheckInTabId = null; 
+        
+        return;
+      }
+
+      // --- 정상 처리 (성공 또는 기타 에러) ---
       saveLog(req.message);
       
-      // 성공했으면 오늘 날짜 도장 찍기
       if (req.action === "CHECKIN_COMPLETED") {
         const todayKey = getAttendanceDateKey();
         chrome.storage.local.set({ 'lastSuccessDate': todayKey });
@@ -66,6 +81,7 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
       const tabToRemove = autoCheckInTabId;
       autoCheckInTabId = null; 
 
+      // 3초 뒤 닫기
       setTimeout(() => {
         chrome.tabs.remove(tabToRemove).catch(() => {}); 
       }, 3000);

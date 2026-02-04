@@ -10,14 +10,31 @@
       background-color: #f9f9f9;
       color: #333;
     }
+    
+    /* 메인 타이틀 */
     h2 {
       margin: 0 0 15px 0;
       font-size: 18px;
       color: #2c3e50;
       text-align: center;
-      border-bottom: 2px solid #3498db;
-      padding-bottom: 10px;
+      font-weight: 700;
     }
+
+    /* 상태 표시 박스 */
+    #status-box {
+      padding: 15px;
+      background: #eee;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid #ddd;
+      transition: all 0.3s ease;
+    }
+    #status-icon { font-size: 24px; display: block; margin-bottom: 5px; }
+    #status-text { font-size: 14px; font-weight: bold; color: #555; }
+    #status-date { font-size: 11px; color: #888; margin-top: 3px; }
+
+    /* 버튼 스타일 */
     button {
       width: 100%;
       padding: 12px;
@@ -32,17 +49,9 @@
       transition: background-color 0.2s;
     }
     button:hover { background-color: #2980b9; }
-    button:disabled { background-color: #bdc3c7; cursor: not-allowed; }
-    
-    #status-box {
-      padding: 10px;
-      background: #f0f0f0;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      font-size: 12px;
-      text-align: center;
-      border: 1px solid #ddd;
-    }
+    button:active { transform: scale(0.98); }
+
+    /* 로그창 스타일 */
     .log-container {
       margin-top: 15px;
       padding: 10px;
@@ -51,26 +60,28 @@
       border-radius: 4px;
       height: 120px;
       overflow-y: auto;
-      font-size: 12px;
+      font-size: 11px;
       color: #555;
+      font-family: monospace;
     }
-    .log-item { margin-bottom: 4px; border-bottom: 1px solid #eee; padding-bottom: 2px; }
-    .log-time { color: #999; font-size: 11px; margin-right: 5px; }
+    .log-item { 
+      padding: 2px 0; 
+      border-bottom: 1px dashed #eee; 
+    }
+    .log-time { color: #999; margin-right: 4px; }
   </style>
 </head>
 <body>
   <h2>Endfield Check-in</h2>
 
   <div id="status-box">
-    상태: <span id="status-text">데이터 확인 중...</span>
+    <span id="status-icon">❓</span>
+    <div id="status-text">상태 확인 중...</div>
+    <div id="status-date">-</div>
   </div>
 
   <button id="btn-manual">지금 수동으로 출석하기</button>
   
-  <button id="btn-relogin" style="display:none; background-color: #e74c3c;">
-    🚨 세션 만료! 클릭해서 재로그인
-  </button>
-
   <div class="log-container" id="log-box">
     <div style="text-align:center; color:#aaa; margin-top:40px;">로그 대기 중...</div>
   </div>

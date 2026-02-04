@@ -1,59 +1,75 @@
 # 🚀 Endfield (SKPort) Auto Check-in
 
-엔드필드(Endfield) / SKPort 플랫폼의 일일 출석체크를 자동으로 수행하는 브라우저 확장프로그램입니다.  
-브라우저를 켤 때와 매일 밤 1시 5분에 작동합니다.
+엔드필드(Endfield) / SKPort 플랫폼의 일일 출석체크를 자동으로 수행하는 크롬 확장프로그램입니다.
+복잡한 설정 없이 브라우저를 켜두기만 하면, **백그라운드에서 자동으로 출석 페이지에 접속하여 보상을 수령**합니다.
 
 ## ✨ 주요 기능
 
-* **🍪 스마트 쿠키 동기화:** SKPort 웹사이트에 로그인하면 확장프로그램이 자동으로 인증 정보를 감지하여 저장합니다. 별도의 설정이 필요 없습니다.
-* **⚡ 브라우저 시작 시 자동 실행:** 크롬 브라우저를 켜면 즉시 백그라운드에서 출석체크를 시도합니다. (놓침 방지)
-* **⏰ 24시간 자동 스케줄러:** 브라우저가 켜져 있다면 매일 정해진 시간에 자동으로 출석을 수행합니다.
-* **👤 캐릭터 자동 감지:** 계정에 연동된 캐릭터(Role ID) 정보를 자동으로 조회하여 출석체크에 사용합니다.
+* **🖱️ 스마트 오토 클릭 (보안 우회):** 최신 보안 서명(Sign) 이슈를 해결하기 위해, 확장프로그램이 사용자 대신 **백그라운드 탭**을 열고 직접 버튼을 클릭합니다.
+* **👻 무방해 모드 (Background Execution):** 출석 작업은 **백그라운드 탭**에서 조용히 이루어지며, 작업이 완료되면 **자동으로 탭이 닫힙니다.** 사용자의 웹 서핑을 방해하지 않습니다.
+* **🚨 지능형 로그인 감지:** 만약 로그인이 풀려있다면 탭을 닫지 않고 **화면 맨 앞으로 가져와** 사용자에게 로그인이 필요함을 즉시 알립니다. (깜빡임 오진 방지 적용)
+* **⚡ 브라우저 시작 시 자동 실행:** 브라우저를 켤 때마다 **오늘 출석 여부를 확인**하고, 아직 안 했다면 즉시 출석을 시도합니다.
+* **🇰🇷 한국 시간 완벽 지원:** 새벽 1시(서버 초기화 시간)를 기준으로 하루를 정확히 계산하여 중복 실행을 방지합니다.
 
-## 📦 설치 방법 (Download & Install)
+## 📦 설치 방법
 
-이 프로그램은 **Chrome**과 **Firefox**를 모두 지원합니다.  
-우측의 **[Releases]** 페이지에서 브라우저에 맞는 파일을 다운로드하세요.
+1. 이 페이지 우측의 **[Releases]** 섹션을 클릭하거나, **[여기(Releases 페이지)](https://github.com/rrus-2438/Endfield-auto-check-in-simple/releases)**를 클릭합니다.
+2. 최신 버전의 **ZIP 파일**을 다운로드합니다.
+3. 다운로드 받은 파일의 **압축을 풉니다.** (폴더 생성)
 
-### 1. Chrome (크롬)
-1. `Endfield-Chrome-vX.X.X.zip` 다운로드 및 압축 해제.
-2. 주소창에 `chrome://extensions` 접속 → **개발자 모드** 켜기.
-3. **'압축해제된 확장 프로그램을 로드합니다'** 클릭 후 폴더 선택.
-<img width="859" height="118" alt="image" src="https://github.com/user-attachments/assets/65ea87ef-eef9-4331-9562-850f4caa9bab" />  
+### Chrome
 
-### 2. Firefox (파이어폭스)
-1. `Endfield-Firefox-vX.X.X.zip` 다운로드 및 압축 해제.
-2. 주소창에 `about:addons` 접속.
-3. 오른쪽 톱니바퀴 메뉴 클릭.
-4. **'파일에서 부가 기능 설치'** 버튼 클릭.
-5. 다운받은 Endfield-Firefox-vX.X.X.xpi 선택
+4. 크롬 브라우저 주소창에 `chrome://extensions`를 입력하여 접속합니다.
+5. 우측 상단의 **'개발자 모드'** 스위치를 켭니다.
+6. 좌측 상단의 **'압축해제된 확장 프로그램을 로드합니다'** 버튼을 클릭합니다.
 
+<img width="859" height="118" alt="image" src="[https://github.com/user-attachments/assets/65ea87ef-eef9-4331-9562-850f4caa9bab](https://github.com/user-attachments/assets/65ea87ef-eef9-4331-9562-850f4caa9bab)" />
 
-## 🛠️ 사용 방법 (초기 설정)
+7. **압축을 푼 폴더**를 선택하면 설치가 완료됩니다.
 
-설치 직후에는 로그인 정보가 없으므로 다음 과정을 한 번 수행해야 합니다.
+### Firefox
 
-1.  확장프로그램 설치를 마칩니다.
-2.  [엔드필드 출석 체크](https://game.skport.com/endfield/sign-in)에 접속하여 **로그인**합니다.
-3.  확장프로그램 아이콘을 클릭합니다.
-4.  **"로그인 세션 (Cookie): 연동 완료 (OK)"** 라고 뜨는지 확인합니다.
-5.  **"지금 수동으로 출석하기"** 버튼을 눌러 정상 작동하는지 테스트합니다.
+4. 주소창에 about:addons 접속.
+5. 오른쪽 톱니바퀴 메뉴 클릭.
+6. '파일에서 부가 기능 설치' 버튼 클릭.
+7. 다운받은 xpi 파일을 선택
 
-이후에는 브라우저를 켜기만 해도 자동으로 출석체크가 진행됩니다. (로그인이 풀린 경우 다시 사이트에 접속해주면 됩니다.)
+## 🛠️ 사용 방법
+
+설치 후에는 브라우저를 켜기만 해도 자동으로 작동하지만, 처음에는 다음 확인 과정을 권장합니다.
+
+1. **[엔드필드 출석 체크](https://game.skport.com/endfield/sign-in)**에 접속하여 **로그인**이 되어있는지 확인합니다.
+2. 확장프로그램 아이콘을 클릭합니다.
+3. **"지금 수동으로 출석하기"** 버튼을 누릅니다.
+4. 상단 상태창이 **파란색(⏳)**으로 변하며 백그라운드 작업이 시작됩니다.
+5. 잠시 후 **초록색(✅ 오늘 출석 완료!)**이 뜨면 정상 작동 중인 것입니다.
+
+### 🎨 상태 아이콘 설명
+
+팝업창 상단의 색상으로 현재 상태를 쉽게 알 수 있습니다.
+
+* **⏳ 파란색 (진행 중):** 백그라운드 탭에서 출석 페이지에 접속하여 버튼을 찾고 있습니다.
+* **✅ 초록색 (완료):** 오늘 출석을 성공적으로 마쳤거나, 이미 완료된 상태입니다.
+* **🚨 빨간색 (로그인 필요):** 로그인이 풀려있습니다. 자동으로 열린 탭에서 로그인을 진행해주세요.
+* **⚠️ 노란색 (대기):** 아직 출석 시도를 하지 않았거나 다음 스케줄을 기다리는 중입니다.
 
 ## ⚠️ 기술 정보 & 주의사항
 
-* **Target Site:** `skport.com` (Gryphline/Endfield Global)
-* **Cookie Name:** `SK_OAUTH_CRED_KEY`
+* **Target Site:** `skport.com` (Gryphline/Endfield Global or Alpha Test Platform)
+* **Logic:** `tabs` API를 사용하여 실제 페이지를 로드하고, `content script`가 DOM을 분석하여 버튼을 클릭하는 방식입니다. (API 변조 방식 아님)
 * **Permissions:**
-    * `cookies`: 인증 토큰 획득용
-    * `alarms`: 자동 스케줄링용
-    * `storage`: 토큰 및 로그 저장용
+* `tabs`: 백그라운드 탭 제어 및 닫기 기능
+* `scripting` & `activeTab`: 페이지 내 버튼 클릭 스크립트 실행
+* `alarms`: 매일 새벽 자동 실행 스케줄러
+* `storage`: 출석 기록 및 로그 저장
+* `cookies`: 로그인 세션 확인용
+
+
 
 > **Note:** 이 프로젝트는 개인 학습 및 편의를 위해 제작되었습니다. 비정상적인 이용은 제재의 대상이 될 수 있으며, 모든 책임은 사용자에게 있습니다.
 
-
 ## 제작에 참고한 사이트
 
-https://github.com/4n3u/Endfield-CheckIn-Auto/blob/main/main.gs  
-https://github.com/j2i5ll/hoyoverse-checkin
+[https://github.com/4n3u/Endfield-CheckIn-Auto/blob/main/main.gs](https://github.com/4n3u/Endfield-CheckIn-Auto/blob/main/main.gs)
+
+[https://github.com/j2i5ll/hoyoverse-checkin](https://github.com/j2i5ll/hoyoverse-checkin)
