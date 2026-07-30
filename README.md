@@ -68,6 +68,15 @@
 
 > **Note:** 이 프로젝트는 개인 학습 및 편의를 위해 제작되었습니다. 비정상적인 이용은 제재의 대상이 될 수 있으며, 모든 책임은 사용자에게 있습니다.
 
+## 📝 업데이트 내역
+
+### v2.0.1 (진행 상황)
+* 🐛 **[해결됨]** 출석체크 시 백그라운드 탭이 2개씩 열리던 문제를 수정했습니다. ([#3](https://github.com/rrus-2438/Endfield-auto-check-in-simple/issues/3))
+  * 출석 프로세스가 이미 진행 중일 때 중복 실행되지 않도록 가드를 추가했습니다.
+  * 출석 버튼을 안전 확인 없이 2번 클릭하던 로직을 버튼이 여전히 화면에 있을 때만 재클릭하도록 수정했습니다.
+  * 새벽 자동 실행(알람)이 이미 완료된 출석을 다시 시도하지 않도록 날짜 체크를 추가했습니다.
+* 🔎 **[조사 중]** 이성(행동력) 확인 기능 추가 요청 ([#2](https://github.com/rrus-2438/Endfield-auto-check-in-simple/issues/2))을 검토했으나, 현재 확인 가능한 범위에서는 이성 정보가 표시되는 페이지 구조나 API를 특정할 수 없어 보류 중입니다. 해당 화면의 URL/스크린샷 제보를 받고 있습니다.
+
 ## 제작에 참고한 사이트
 
 [https://github.com/4n3u/Endfield-CheckIn-Auto/blob/main/main.gs](https://github.com/4n3u/Endfield-CheckIn-Auto/blob/main/main.gs)

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Endfield Auto Check-in",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "엔드필드 자동 출석체크",
   "permissions": [
     "cookies",

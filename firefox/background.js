@@ -93,6 +93,12 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
 // 4. 출석 프로세스 (탭 열기)
 // ==========================================
 async function startCheckInProcess() {
+  // 이미 진행 중인 탭이 있으면 중복 실행 방지 (탭 2개씩 뜨는 문제 방지)
+  if (autoCheckInTabId !== null) {
+    console.log(`[Endfield] 이미 진행 중인 탭(${autoCheckInTabId})이 있어 중복 실행을 건너뜁니다.`);
+    return;
+  }
+
   saveLog("🚀 자동 출석 시작: 백그라운드 탭 진입...");
   const tab = await chrome.tabs.create({ url: SIGN_IN_URL, active: false });
   autoCheckInTabId = tab.id;
@@ -109,8 +115,17 @@ function saveLog(msg) {
 // ==========================================
 // 5. 스케줄러 (매일 새벽 1시 10분)
 // ==========================================
-chrome.alarms.onAlarm.addListener((alarm) => { 
-  if (alarm.name === "dailyCheck") startCheckInProcess(); 
+chrome.alarms.onAlarm.addListener(async (alarm) => {
+  if (alarm.name !== "dailyCheck") return;
+
+  // 이미 오늘 출석을 완료했다면 다시 실행하지 않음 (onStartup과 겹쳐 탭이 중복 생성되는 것 방지)
+  const { lastSuccessDate } = await chrome.storage.local.get(['lastSuccessDate']);
+  if (lastSuccessDate === getAttendanceDateKey()) {
+    console.log("[Endfield] 알람 발화했지만 오늘은 이미 출석 완료됨. 실행 안 함.");
+    return;
+  }
+
+  startCheckInProcess();
 });
 
 function initScheduler() {

@@ -87,7 +87,10 @@ function tryClickButton() {
 function clickElement(el) {
   hasClicked = true;
   el.click();
-  setTimeout(() => el.click(), 100);
+  // 클릭 후에도 버튼이 여전히 화면에 남아있는 경우에만 재클릭 (사이트가 새 탭/팝업을 여는 경우 중복 클릭 방지)
+  setTimeout(() => {
+    if (isVisible(el)) el.click();
+  }, 100);
   reportSuccess("✅ 버튼 클릭 완료!");
   if (observer) observer.disconnect();
 }
